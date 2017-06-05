@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="org.fictio.shop.mapping.GoodsMapper">
+
+	<select id="getGoodsByName" resultType="org.fictio.shop.pojo.Goods">
+		select id,name from jjg_goods where name=#{name}
+	</select>
+	<insert id="addGood">
+		insert into jjg_goods(name,goods_no,model_id,market_price,sell_price,cost_price,
+							up_time,down_time,create_time,store_nums,img,ad_img,is_del,
+							content,keywords,search_words,description,weight,point,unit,
+							brand_id,visit,favorite,sort,spec_array,exp,grade,seller_id,
+							is_share)
+		values(#{name},#{goods_no},#{model_id},#{market_price},#{sell_price},#{cost_price},
+			#{up_time},#{down_time},#{create_time},#{store_nums},#{img},#{ad_img},#{is_del},
+			#{content},#{keywords},#{search_words},#{description},#{weight},#{point},#{unit},
+			#{brand_id},#{visit},#{favorite},#{sort},#{spec_array},#{exp},#{grade},#{seller_id},
+			#{is_share})
+	</insert>
+	<insert id="addGoodList" useGeneratedKeys="true" keyProperty="id">
+		insert into jjg_goods(name,goods_no,model_id,market_price,sell_price,
+			cost_price,up_time,down_time,create_time,store_nums,img,ad_img,is_del,
+			content,keywords,search_words,description,weight,point,unit,brand_id,
+			visit,favorite,sort,spec_array,exp,grade,seller_id,is_share)
+		values
+			<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.name},#{item.goods_no},#{item.model_id},#{item.market_price},#{item.sell_price},
+			#{item.cost_price},#{item.up_time},#{item.down_time},#{item.create_time},#{item.store_nums},
+			#{item.img},#{item.ad_img},#{item.is_del},#{item.content},#{item.keywords},#{item.search_words},
+			#{item.description},#{item.weight},#{item.point},#{item.unit},#{item.brand_id},#{item.visit},
+			#{item.favorite},#{item.sort},#{item.spec_array},#{item.exp},#{item.grade},#{item.seller_id},
+			#{item.is_share})
+			</foreach>
+	</insert>
+</mapper>
