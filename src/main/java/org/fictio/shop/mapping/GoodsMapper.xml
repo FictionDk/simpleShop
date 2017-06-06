@@ -4,7 +4,10 @@
 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
  -->
 <mapper namespace="org.fictio.shop.mapping.GoodsMapper">
-
+	
+	<!-- 开启二级缓存.注一级缓存session commit()后二级缓存新数据的二级缓存才会生效 -->
+	<cache/>
+	
 	<select id="getGoodsByName" resultType="org.fictio.shop.pojo.Goods">
 		select id,name from jjg_goods where name=#{name}
 	</select>
@@ -35,4 +38,22 @@
 			#{item.is_share})
 			</foreach>
 	</insert>
+	
+	<!-- 联表查询,商品和图片id -->
+	<select id="getGoodsAndPhotoById" resultMap="goodAndPhotoMap">
+		select g.id,g.goods_no,g.name,pr.photo_id from jjg_goods as g left join jjg_goods_photo_relation as pr on 
+		g.id = pr.goods_id where g.id = #{id}
+	</select>
+	<!-- 映射实体类属性名和表的字段名对应关系 -->
+	<resultMap type="org.fictio.shop.pojo.Goods" id="goodAndPhotoMap">
+		<!-- 重新定义数据库字段和bean对象之间的关联,id为主键,result非主键 -->
+		<id column="id" property="id"></id>
+		<result column="goods_no" property="goods_no"/>
+		<result column="name" property="name" />
+		<!-- 一对多查询,association用于一对多查询 -->
+		<collection property="photoRelation" ofType="org.fictio.shop.pojo.GoodsPhotoRelation">
+			<id column="id" property="id"/>
+			<result column="photo_id" property="photo_id"/>
+		</collection>
+	</resultMap>
 </mapper>

@@ -49,7 +49,7 @@ public class GoodsCopyScript {
 		}
 		long time3 = System.currentTimeMillis();
 		
-		//String statement = "org.fictio.mvn_test.mapping.GoodsMapper.addGoodList";
+		//String statement = "org.fictio.shop.mapping.GoodsMapper.addGoodList";
 		//session.insert(statement, goodList);
 		//session.commit();
 		long time4 = System.currentTimeMillis();
@@ -107,7 +107,7 @@ public class GoodsCopyScript {
 		for(CategoryExtend item : goodCategorys){
 			item.setGoods_id(id);
 		}
-		String statement = "org.fictio.mvn_test.mapping.CategoryExtendMapper.insertCategoryExtendList";
+		String statement = "org.fictio.shop.mapping.CategoryExtendMapper.insertCategoryExtendList";
 		session.insert(statement,goodCategorys);
 	}
 
@@ -120,7 +120,7 @@ public class GoodsCopyScript {
 	private static List<CategoryExtend> getGoodCategorysByGoodsId(SqlSession session, int id) {
 		CategoryExtend temp = new CategoryExtend();
 		temp.setGoods_id(id);
-		String statement = "org.fictio.mvn_test.mapping.CategoryExtendMapper.getCategoryExtendByGoodId";
+		String statement = "org.fictio.shop.mapping.CategoryExtendMapper.getCategoryExtendByGoodId";
 		return session.selectList(statement, temp);
 	}
 
@@ -135,7 +135,7 @@ public class GoodsCopyScript {
 		for(GoodsPhotoRelation item : photoRelations){
 			item.setGoods_id(id);
 		}
-		String statement = "org.fictio.mvn_test.mapping.PhotoRelationMapper.insertRelationList";
+		String statement = "org.fictio.shop.mapping.PhotoRelationMapper.insertRelationList";
 		session.insert(statement, photoRelations);
 	}
 
@@ -148,7 +148,7 @@ public class GoodsCopyScript {
 	private static List<GoodsPhotoRelation> getPhotoRelationsByGoodsId(SqlSession session, int id) {
 		GoodsPhotoRelation temp = new GoodsPhotoRelation();
 		temp.setGoods_id(id);
-		String statement = "org.fictio.mvn_test.mapping.PhotoRelationMapper.getPhotoRelationsByGoodId";
+		String statement = "org.fictio.shop.mapping.PhotoRelationMapper.getPhotoRelationsByGoodId";
 		return session.selectList(statement, temp);
 	}
 
@@ -159,7 +159,7 @@ public class GoodsCopyScript {
 	 * @return
 	 */
 	private static List<Goods> getGoodsByName(SqlSession session, Goods good) {
-		String statement = "org.fictio.mvn_test.mapping.GoodsMapper.getGoodsByName";
+		String statement = "org.fictio.shop.mapping.GoodsMapper.getGoodsByName";
 		return session.selectList(statement, good);
 	}
 }
